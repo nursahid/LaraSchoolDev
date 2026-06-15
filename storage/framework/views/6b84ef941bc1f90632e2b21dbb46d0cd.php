@@ -1,0 +1,57 @@
+<?php $__env->startSection('page-title', 'Edit User'); ?>
+
+<?php $__env->startSection('breadcrumb'); ?>
+    <li><a href="<?php echo e(route('admin.users.index')); ?>" class="text-indigo-300 hover:text-white">Users</a></li>
+    <li class="text-white/40">/</li>
+    <li class="text-white">Edit: <?php echo e($user->name); ?></li>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="max-w-lg">
+    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+        <form action="<?php echo e(route('admin.users.update', $user->id)); ?>" method="POST">
+            <?php echo csrf_field(); ?> <?php echo method_field('PUT'); ?>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-indigo-200 mb-1">Nama</label>
+                    <input type="text" name="name" value="<?php echo e(old('name', $user->name)); ?>" required
+                        class="w-full bg-white/10 border border-white/20 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-indigo-400">
+                </div>
+                <div>
+                    <label class="block text-sm text-indigo-200 mb-1">Email</label>
+                    <input type="email" name="email" value="<?php echo e(old('email', $user->email)); ?>" required
+                        class="w-full bg-white/10 border border-white/20 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-indigo-400">
+                </div>
+                <div>
+                    <label class="block text-sm text-indigo-200 mb-1">Password Baru (kosongkan jika tidak diubah)</label>
+                    <input type="password" name="password"
+                        class="w-full bg-white/10 border border-white/20 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-indigo-400">
+                </div>
+                <div>
+                    <label class="block text-sm text-indigo-200 mb-2">Role</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <label class="flex items-center gap-2 text-sm text-indigo-200 cursor-pointer">
+                            <input type="checkbox" name="roles[]" value="<?php echo e($role->name); ?>"
+                                <?php echo e($user->hasRole($role->name) ? 'checked' : ''); ?>
+
+                                class="accent-indigo-500 w-4 h-4">
+                            <?php echo e($role->name); ?>
+
+                        </label>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-6 py-2.5 text-sm font-medium transition">
+                        <i class="fas fa-save mr-2"></i>Update
+                    </button>
+                    <a href="<?php echo e(route('admin.users.index')); ?>" class="bg-white/10 hover:bg-white/20 text-indigo-300 rounded-xl px-6 py-2.5 text-sm transition">Batal</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\www\laravel\laraschool\resources\views/admin/users/edit.blade.php ENDPATH**/ ?>
