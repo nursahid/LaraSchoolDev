@@ -107,7 +107,7 @@
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/yourusername/laraschool.git
+git clone https://github.com/nursahid/LaraSchoolDev.git
 cd laraschool
 
 # 2. Install dependensi PHP
